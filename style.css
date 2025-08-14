@@ -57,7 +57,7 @@ header nav .nav-link.active::after {
 /* Stili per i bottoni */
 .btn-primary {
     background-color: var(--accent-color);
-    color: #1a1a1a;
+    color: #1a1a1a !important; /* !important per sovrascrivere .nav-link:hover */
     font-weight: 600;
     padding: 12px 24px;
     border-radius: 8px;
@@ -67,11 +67,6 @@ header nav .nav-link.active::after {
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
-}
-
-/* NUOVA REGOLA: Impedisce al testo del bottone di diventare arancione in hover */
-.btn-primary.nav-link:hover {
-    color: #1a1a1a; /* Mantiene il colore del testo scuro e leggibile */
 }
 
 .category-btn {
@@ -85,6 +80,62 @@ header nav .nav-link.active::after {
     color: var(--bg-primary);
     border-color: var(--accent-color);
     font-weight: 700;
+}
+
+/* --- NUOVI STILI PER I TAG --- */
+.tag-btn {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.tag-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.tag-btn.active {
+    background-color: color-mix(in srgb, var(--accent-color) 25%, transparent);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    font-weight: 600;
+}
+
+.project-tag {
+    display: inline-block;
+    background-color: var(--border-color);
+    color: var(--text-secondary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-right: 6px;
+    margin-top: 8px;
+}
+
+.card-tags {
+    margin-top: auto; /* Spinge i tag in fondo alla card */
+    padding-top: 8px;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+    cursor: pointer;
+    transition: transform 0.3s;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+}
+
+.card-container:hover {
+    transform: scale(1.05);
 }
 
 /* Stili per la Lightbox (galleria immagini) */
