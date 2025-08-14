@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="it" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DMAGE Portfolio</title>
+    <meta name="description" content="Portfolio di creazioni stampate in 3D. Esplora i nostri progetti, dalle miniature ai pezzi di design per la casa.">
+    <meta name="keywords" content="stampa 3d, portfolio, 3dmage, pokemon, marvel, stampe personalizzate, decorazioni">
+    <link rel="icon" href="https://tjssjlcudohyashstbbf.supabase.co/storage/v1/object/public/files/Logo%203DMAGE.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="antialiased" style="background-color: var(--bg-primary); color: var(--text-primary);">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 w-full border-b backdrop-blur-sm" style="background-color: color-mix(in srgb, var(--bg-primary) 80%, transparent); border-color: var(--border-color);">
+        <div class="container mx-auto px-4">
+            <div class="flex h-16 items-center justify-between">
+                <a href="#" class="flex items-center gap-2 nav-link" data-target="home">
+                    <img src="https://tjssjlcudohyashstbbf.supabase.co/storage/v1/object/public/files/Logo%203DMAGE.png" alt="Logo 3DMAGE" class="h-10">
+                    <span class="text-xl font-bold" style="color: var(--text-primary);">PORTFOLIO</span>
+                </a>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="nav-link font-semibold active" data-target="home">Home</a>
+                    <a href="#" class="nav-link font-semibold" data-target="galleria">Galleria</a>
+                    <a href="#" class="nav-link font-semibold" data-target="chi-siamo">Chi Siamo</a>
+                    <a href="#" class="nav-link font-semibold" data-target="contatti">Contatti</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="p-2 rounded-full" style="background-color: var(--bg-secondary); color: var(--text-secondary);"><i data-lucide="sun" class="light-icon"></i><i data-lucide="moon" class="dark-icon hidden"></i></button>
+                    <button id="mobile-menu-btn" class="p-2 md:hidden"><i data-lucide="menu"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color);">
+            <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="home">Home</a>
+            <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="galleria">Galleria</a>
+            <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="chi-siamo">Chi Siamo</a>
+            <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="contatti">Contatti</a>
+        </div>
+    </header>
+
+    <!-- Contenuto Principale -->
+    <main>
+        <!-- Sezione Home -->
+        <section id="home" class="content-section">
+            <!-- Area Hero con immagine di sfondo -->
+            <div class="relative text-center min-h-[75vh] flex flex-col justify-center items-center p-4 overflow-hidden rounded-lg mb-16">
+                <div class="absolute inset-0" id="home-bg-container"></div>
+                <div class="relative z-10">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 text-white animate-fade-in-up">
+                        Dall'Idea alla Realtà, <span style="color: var(--accent-color);">Strato dopo Strato</span>.
+                    </h1>
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-200 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        Benvenuti nel portfolio di 3DMAGE. Siamo un team di 4 amici appassionati che trasformano la creatività digitale in oggetti tangibili attraverso la magia della stampa 3D.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sezione Oggetti in Evidenza (ora separata) -->
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold mb-8 text-center">Oggetti in Evidenza</h2>
+                <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                     <div class="col-span-full text-center" style="color: var(--text-secondary);">Caricamento...</div>
+                </div>
+                <div class="text-center">
+                    <button class="btn-primary nav-link animate-pulse-orange" data-target="galleria">
+                        Vedi tutta la galleria
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Galleria -->
+        <section id="galleria" class="content-section container mx-auto p-4 md:p-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-2">La Nostra Galleria</h2>
+                <p style="color: var(--text-secondary);">Filtra per categoria per esplorare i nostri lavori.</p>
+            </div>
+            <div id="category-filters" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                <button class="category-btn active px-4 py-2 rounded-full text-sm font-semibold transition" data-filter="all">Tutto</button>
+            </div>
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                 <div class="col-span-full text-center" style="color: var(--text-secondary);">Caricamento...</div>
+            </div>
+        </section>
+
+        <!-- Sezione Chi Siamo -->
+        <section id="chi-siamo" class="content-section container mx-auto p-4 md:p-8 max-w-4xl">
+            <div class="text-center mb-12"><h2 class="text-3xl font-bold mb-2">La nostra Storia</h2><p style="color: var(--text-secondary);">Quattro amici, una passione, infinite possibilità.</p></div>
+            <div class="p-8 rounded-lg" style="background-color: var(--bg-secondary);"><p class="mb-4">3DMAGE è nata da una passione condivisa tra quattro amici. Tutto è iniziato in un piccolo garage, con una singola stampante 3D e un'infinità di idee. Ci affascinava la possibilità di dare vita a modelli digitali, di poter toccare con mano qualcosa che fino a poco prima era solo un file su un computer.</p><p class="mb-6">Con il tempo, la nostra esperienza è cresciuta, così come il nostro "arsenale" di stampanti. Oggi, ci dedichiamo a creare stampe di alta qualità, curando ogni dettaglio, dalla scelta del materiale alla post-produzione. Che si tratti di un personaggio amato, di un prototipo funzionale o di un oggetto di design unico per la casa, mettiamo la stessa cura e passione in ogni progetto.</p><div class="border-t pt-6" style="border-color: var(--border-color);"><h3 class="text-xl font-semibold mb-4 text-center">Seguici sui Social!</h3><div class="flex justify-center items-center gap-6"><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="instagram"></i></a><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="facebook"></i></a><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="send"></i></a><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="message-circle"></i></a></div></div></div>
+        </section>
+
+        <!-- Sezione Contatti -->
+        <section id="contatti" class="content-section container mx-auto p-4 md:p-8 max-w-2xl">
+            <div class="text-center mb-12"><h2 class="text-3xl font-bold mb-2">Contattaci</h2><p style="color: var(--text-secondary);">Hai un'idea da realizzare o vuoi chiederci qualcosa? Scrivici!</p></div>
+              <form action="https://formspree.io/f/xwpqygbr" method="POST" class="space-y-6">
+                  <div><label for="name" class="block text-sm font-medium mb-2">Nome</label><input type="text" id="name" name="name" required class="w-full p-3 rounded-lg border" style="background-color: var(--bg-secondary); border-color: var(--border-color);"></div>
+                  <div><label for="email" class="block text-sm font-medium mb-2">Email</label><input type="email" id="email" name="email" required class="w-full p-3 rounded-lg border" style="background-color: var(--bg-secondary); border-color: var(--border-color);"></div>
+                  <div><label for="message" class="block text-sm font-medium mb-2">Messaggio</label><textarea id="message" name="message" rows="5" required class="w-full p-3 rounded-lg border" style="background-color: var(--bg-secondary); border-color: var(--border-color);"></textarea></div>
+                  <div class="text-center"><button type="submit" class="btn-primary w-full md:w-auto">Invia Messaggio</button></div>
+              </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t mt-12" style="border-color: var(--border-color);"><div class="container mx-auto px-4 py-6 text-center" style="color: var(--text-secondary);"><p>&copy; 2025 3DMAGE. Tutti i diritti riservati.</p></div></footer>
+
+    <!-- Lightbox/Modal per Immagini -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4"><div id="lightbox-bg" class="absolute inset-0"></div><div class="relative w-full max-w-4xl max-h-full rounded-lg shadow-lg flex flex-col md:flex-row" style="background-color: var(--bg-secondary);"><div class="w-full md:w-2/3 h-64 md:h-auto bg-black flex items-center justify-center rounded-t-lg md:rounded-l-lg md:rounded-tr-none"><img id="lightbox-img" src="" alt="Vista ingrandita" class="max-w-full max-h-full object-contain"></div><div class="w-full md:w-1/3 p-6 flex flex-col"><h3 id="lightbox-title" class="text-2xl font-bold mb-2" style="color: var(--accent-color);"></h3><p id="lightbox-desc" class="flex-grow mb-4" style="color: var(--text-secondary);"></p><div class="border-t pt-4" style="border-color: var(--border-color);"><h4 class="font-semibold mb-2">Dettagli Tecnici:</h4><p id="lightbox-tech" class="text-sm" style="color: var(--text-secondary);"></p></div></div><button id="lightbox-close" class="absolute -top-3 -right-3 text-white bg-red-600 rounded-full p-1.5 z-10"><i data-lucide="x"></i></button></div></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const SUPABASE_URL = 'https://tjssjlcudohyashstbbf.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqc3NqbGN1ZG9oeWFzaHN0YmJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUwMDA0OTUsImV4cCI6MjA3MDU3NjQ5NX0.1bJTkkLERHrgdyZJJu9nSYOZWARhvNyWQlzyUvoMl3E';
+
+            const { createClient } = supabase;
+            const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+            let allProjects = [];
+            const galleryGrid = document.getElementById('gallery-grid');
+            const featuredGrid = document.getElementById('featured-grid');
+            const categoryFilters = document.getElementById('category-filters');
+
+            function renderCard(item, isFeatured = false) {
+                const card = document.createElement('div');
+                card.className = 'rounded-lg overflow-hidden shadow-lg cursor-pointer transition-transform duration-300 hover:scale-105 group border';
+                card.style.backgroundColor = 'var(--bg-secondary)';
+                card.style.borderColor = 'var(--border-color)';
+                card.dataset.id = item.id;
+                const imageUrl = (item.images && item.images.length > 0) ? item.images[0] : 'https://placehold.co/600x400/161b22/8b949e?text=No+Image';
+                card.innerHTML = `<div class="relative overflow-hidden h-64"><img src="${imageUrl}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400/161b22/8b949e?text=Image+Error';"><div class="absolute inset-0 bg-black bg-opacity-20"></div></div><div class="p-4"><h3 class="text-lg font-bold truncate" style="color: var(--text-primary);">${item.title}</h3><p class="text-sm" style="color: var(--accent-color);">${item.category}</p></div>`;
+                return card;
+            }
+
+            function renderGallery(filter = 'all') {
+                galleryGrid.innerHTML = '';
+                const filteredItems = filter === 'all' ? allProjects : allProjects.filter(item => item.category === filter);
+                if (filteredItems.length === 0) {
+                    galleryGrid.innerHTML = `<p class="col-span-full text-center" style="color: var(--text-secondary);">Nessun oggetto trovato in questa categoria.</p>`;
+                    return;
+                }
+                filteredItems.forEach(item => galleryGrid.appendChild(renderCard(item)));
+            }
+
+            function renderFeaturedItems(items) {
+                featuredGrid.innerHTML = '';
+                if (items.length === 0) {
+                     featuredGrid.innerHTML = `<p class="col-span-full text-center" style="color: var(--text-secondary);">Nessun oggetto in evidenza al momento.</p>`;
+                     return;
+                }
+                items.slice(0, 3).forEach(item => featuredGrid.appendChild(renderCard(item, true)));
+            }
+
+            function populateCategories() {
+                const categories = [...new Set(allProjects.map(item => item.category))];
+                categoryFilters.innerHTML = '<button class="category-btn active px-4 py-2 rounded-full text-sm font-semibold transition" data-filter="all">Tutto</button>';
+                categories.forEach(cat => {
+                    if (!cat) return;
+                    const btn = document.createElement('button');
+                    btn.className = 'category-btn px-4 py-2 rounded-full text-sm font-semibold transition';
+                    btn.dataset.filter = cat;
+                    btn.textContent = cat;
+                    categoryFilters.appendChild(btn);
+                });
+            }
+
+            async function fetchData() {
+                try {
+                    const { data: projects, error } = await db.from('projects').select('*').order('created_at', { ascending: false });
+                    if (error) throw error;
+                    allProjects = projects;
+                    const featuredItems = allProjects.filter(p => p.is_featured);
+                    renderFeaturedItems(featuredItems);
+                    renderGallery('all');
+                    populateCategories();
+                } catch (error) {
+                    console.error("Errore nel caricamento dei progetti:", error);
+                    const errorMsg = `<p class="col-span-full text-center text-red-400 p-4 rounded-lg" style="background-color: rgba(255,0,0,0.1);"><b>Errore nel caricamento dei progetti:</b><br>${error.message}</p>`;
+                    galleryGrid.innerHTML = errorMsg;
+                    featuredGrid.innerHTML = '';
+                }
+            }
+
+            categoryFilters.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    document.querySelector('#category-filters .active').classList.remove('active');
+                    e.target.classList.add('active');
+                    renderGallery(e.target.dataset.filter);
+                }
+            });
+
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDesc = document.getElementById('lightbox-desc');
+            const lightboxTech = document.getElementById('lightbox-tech');
+            const lightboxClose = document.getElementById('lightbox-close');
+            const lightboxBg = document.getElementById('lightbox-bg');
+
+            function openLightbox(itemId) {
+                const item = allProjects.find(p => p.id == itemId);
+                if (!item) return;
+                lightboxImg.src = (item.images && item.images.length > 0) ? item.images[0] : 'https://placehold.co/600x400/161b22/8b949e?text=No+Image';
+                lightboxTitle.textContent = item.title;
+                lightboxDesc.textContent = item.description;
+                lightboxTech.innerHTML = item.tech_details ? item.tech_details.replace(/\|/g, '<br>') : 'Nessun dettaglio tecnico.';
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }
+
+            document.querySelector('main').addEventListener('click', (e) => {
+                const card = e.target.closest('[data-id]');
+                if (card) {
+                    openLightbox(card.dataset.id);
+                }
+            });
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxBg.addEventListener('click', closeLightbox);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === "Escape") closeLightbox();
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            function switchPage(targetId) {
+                contentSections.forEach(section => {
+                    section.style.display = section.id === targetId ? 'block' : 'none';
+                });
+                document.querySelectorAll('header .nav-link, #mobile-menu .nav-link').forEach(link => {
+                    link.classList.toggle('active', link.dataset.target === targetId && !link.parentElement.classList.contains('btn-primary'));
+                });
+                window.scrollTo(0, 0);
+                mobileMenu.classList.add('hidden');
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (e.currentTarget.dataset.target) {
+                        switchPage(e.currentTarget.dataset.target);
+                    }
+                });
+            });
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlEl = document.documentElement;
+
+            function applyTheme(theme) {
+                if (theme === 'light') {
+                    htmlEl.classList.add('light');
+                    htmlEl.classList.remove('dark');
+                } else {
+                    htmlEl.classList.add('dark');
+                    htmlEl.classList.remove('light');
+                }
+                document.querySelector('.light-icon').classList.toggle('hidden', theme !== 'light');
+                document.querySelector('.dark-icon').classList.toggle('hidden', theme === 'light');
+                localStorage.setItem('theme', theme);
+            }
+
+            themeToggle.addEventListener('click', () => {
+                const isLight = htmlEl.classList.contains('light');
+                applyTheme(isLight ? 'dark' : 'light');
+            });
+
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            lucide.createIcons();
+            switchPage('home');
+            await fetchData();
+        });
+    </script>
+</body>
+</html>
