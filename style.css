@@ -16,11 +16,22 @@ html.light {
     --border-color: #d1d5db;
 }
 
+/* MODIFICA: Aggiunto layout flex per sticky footer */
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1; /* Fa in modo che il main occupi tutto lo spazio disponibile */
 }
 
 /* Stili per la navigazione */
@@ -82,7 +93,7 @@ header nav .nav-link.active::after {
     font-weight: 700;
 }
 
-/* --- NUOVI STILI PER I TAG --- */
+/* Stili per i TAG */
 .tag-btn {
     background-color: transparent;
     color: var(--text-secondary);
@@ -118,7 +129,7 @@ header nav .nav-link.active::after {
 }
 
 .card-tags {
-    margin-top: auto; /* Spinge i tag in fondo alla card */
+    margin-top: auto;
     padding-top: 8px;
 }
 
@@ -168,7 +179,7 @@ header nav .nav-link.active::after {
     z-index: -1;
 }
 
-/* NUOVE ANIMAZIONI */
+/* Animazioni */
 .animate-fade-in-up {
     animation: fade-in-up 0.8s ease-out forwards;
     opacity: 0;

@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="antialiased" style="background-color: var(--bg-primary); color: var(--text-primary);">
+<body class="antialiased">
 
     <!-- Header -->
     <header class="sticky top-0 z-40 w-full border-b backdrop-blur-sm" style="background-color: color-mix(in srgb, var(--bg-primary) 80%, transparent); border-color: var(--border-color);">
@@ -29,7 +29,7 @@
                     <a href="#" class="nav-link font-semibold active" data-target="home">Home</a>
                     <a href="#" class="nav-link font-semibold" data-target="galleria">Galleria</a>
                     <a href="#" class="nav-link font-semibold" data-target="chi-siamo">Chi Siamo</a>
-                    <a href="#" class="nav-link font-semibold" data-target="contatti">Contatti</a>
+                    <a href="#" class="nav-link font-semibold" data-target="contatti">Contattaci</a>
                 </nav>
                 <div class="flex items-center gap-4">
                     <button id="theme-toggle" class="p-2 rounded-full" style="background-color: var(--bg-secondary); color: var(--text-secondary);"><i data-lucide="sun" class="light-icon"></i><i data-lucide="moon" class="dark-icon hidden"></i></button>
@@ -41,7 +41,7 @@
             <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="home">Home</a>
             <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="galleria">Galleria</a>
             <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="chi-siamo">Chi Siamo</a>
-            <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="contatti">Contatti</a>
+            <a href="#" class="block py-3 px-4 text-center nav-link font-semibold" data-target="contatti">Contattaci</a>
         </div>
     </header>
 
@@ -93,13 +93,13 @@
             </div>
         </section>
 
-        <!-- Sezioni Chi Siamo e Contatti (invariate) -->
+        <!-- Sezioni Chi Siamo e Contatti -->
         <section id="chi-siamo" class="content-section container mx-auto p-4 md:p-8 max-w-4xl">
             <div class="text-center mb-12"><h2 class="text-3xl font-bold mb-2">La nostra Storia</h2><p style="color: var(--text-secondary);">Quattro amici, una passione, infinite possibilità.</p></div>
             <div class="p-8 rounded-lg" style="background-color: var(--bg-secondary);"><p class="mb-4">3DMAGE è nata da una passione condivisa tra quattro amici. Tutto è iniziato in un piccolo garage, con una singola stampante 3D e un'infinità di idee. Ci affascinava la possibilità di dare vita a modelli digitali, di poter toccare con mano qualcosa che fino a poco prima era solo un file su un computer.</p><p class="mb-6">Con il tempo, la nostra esperienza è cresciuta, così come il nostro "arsenale" di stampanti. Oggi, ci dedichiamo a creare stampe di alta qualità, curando ogni dettaglio, dalla scelta del materiale alla post-produzione. Che si tratti di un personaggio amato, di un prototipo funzionale o di un oggetto di design unico per la casa, mettiamo la stessa cura e passione in ogni progetto.</p><div class="border-t pt-6" style="border-color: var(--border-color);"><h3 class="text-xl font-semibold mb-4 text-center">Seguici sui Social!</h3><div class="flex justify-center items-center gap-6"><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="instagram"></i></a><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="facebook"></i></a><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="send"></i></a><a href="#" class="p-2 rounded-full transition hover:scale-110" style="background-color: var(--accent-color); color: var(--bg-primary);"><i data-lucide="message-circle"></i></a></div></div></div>
         </section>
         <section id="contatti" class="content-section container mx-auto p-4 md:p-8 max-w-2xl">
-            <div class="text-center mb-12"><h2 class="text-3xl font-bold mb-2">Contattaci</h2><p style="color: var(--text-secondary);">Hai un'idea da realizzare o vuoi chiederci qualcosa? Scrivici!</p></div>
+            <div class="text-center mb-12"><h2 class="text-3xl font-bold mb-2">Contattaci</h2><p style="color: var(--text-secondary);">Hai un'idea da realizzare o vuoi chiederci qualcosa? Scrivici una mail!</p></div>
               <form action="https://formspree.io/f/xwpqygbr" method="POST" class="space-y-6">
                   <div><label for="name" class="block text-sm font-medium mb-2">Nome</label><input type="text" id="name" name="name" required class="w-full p-3 rounded-lg border" style="background-color: var(--bg-secondary); border-color: var(--border-color);"></div>
                   <div><label for="email" class="block text-sm font-medium mb-2">Email</label><input type="email" id="email" name="email" required class="w-full p-3 rounded-lg border" style="background-color: var(--bg-secondary); border-color: var(--border-color);"></div>
@@ -137,11 +137,10 @@
             // --- FUNZIONI DI RENDER ---
             function renderCard(item) {
                 const card = document.createElement('div');
-                card.className = 'card-container'; // Classe definita in style.css
+                card.className = 'card-container';
                 card.dataset.id = item.id;
                 const imageUrl = (item.images && item.images.length > 0) ? item.images[0] : 'https://placehold.co/600x400/161b22/8b949e?text=No+Image';
 
-                // Crea i tag HTML
                 const tagsHTML = item.tags && item.tags.length > 0
                     ? `<div class="card-tags">${item.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}</div>`
                     : '';
@@ -162,13 +161,10 @@
 
             function renderGallery() {
                 galleryGrid.innerHTML = '';
-
-                // 1. Filtra per categoria
                 const categoryFiltered = activeCategory === 'all'
                     ? allProjects
                     : allProjects.filter(item => item.category === activeCategory);
 
-                // 2. Filtra per tag (sul risultato precedente)
                 const finalFiltered = activeTag === 'all'
                     ? categoryFiltered
                     : categoryFiltered.filter(item => item.tags && item.tags.includes(activeTag));
@@ -202,17 +198,23 @@
 
             function populateTags() {
                 tagFilters.innerHTML = '';
-                const itemsToShowTagsFor = activeCategory === 'all'
-                    ? allProjects
-                    : allProjects.filter(p => p.category === activeCategory);
 
+                // MODIFICA: Mostra i tag solo se è selezionata una categoria specifica
+                if (activeCategory === 'all') {
+                    tagFilters.style.visibility = 'hidden'; // Nasconde i tag ma non collassa lo spazio
+                    return;
+                }
+
+                tagFilters.style.visibility = 'visible'; // Mostra di nuovo i tag
+
+                const itemsToShowTagsFor = allProjects.filter(p => p.category === activeCategory);
                 const tags = [...new Set(itemsToShowTagsFor.flatMap(item => item.tags || []))];
 
                 if (tags.length > 0) {
                     const allTagsBtn = document.createElement('button');
                     allTagsBtn.className = 'tag-btn active';
                     allTagsBtn.dataset.filter = 'all';
-                    allTagsBtn.textContent = 'Tutti i Tag';
+                    allTagsBtn.textContent = 'Tutti gli oggetti';
                     tagFilters.appendChild(allTagsBtn);
 
                     tags.forEach(tag => {
@@ -235,8 +237,8 @@
 
                     renderFeaturedItems(featuredItems);
                     populateCategories();
-                    populateTags(); // Popola i tag per "Tutte le categorie" all'inizio
-                    renderGallery(); // Renderizza la galleria iniziale
+                    populateTags();
+                    renderGallery();
                 } catch (error) {
                     console.error("Errore nel caricamento dei progetti:", error);
                     const errorMsg = `<p class="col-span-full text-center text-red-400 p-4 rounded-lg" style="background-color: rgba(255,0,0,0.1);"><b>Errore:</b> ${error.message}</p>`;
@@ -251,7 +253,7 @@
                     document.querySelector('#category-filters .active').classList.remove('active');
                     e.target.classList.add('active');
                     activeCategory = e.target.dataset.filter;
-                    activeTag = 'all'; // Resetta il filtro dei tag quando cambi categoria
+                    activeTag = 'all';
                     populateTags();
                     renderGallery();
                 }
@@ -259,14 +261,16 @@
 
             tagFilters.addEventListener('click', (e) => {
                 if (e.target.tagName === 'BUTTON') {
-                    document.querySelector('#tag-filters .active').classList.remove('active');
+                    if (document.querySelector('#tag-filters .active')) {
+                        document.querySelector('#tag-filters .active').classList.remove('active');
+                    }
                     e.target.classList.add('active');
                     activeTag = e.target.dataset.filter;
                     renderGallery();
                 }
             });
 
-            // --- GESTIONE LIGHTBOX E NAVIGAZIONE (invariata) ---
+            // --- GESTIONE LIGHTBOX E NAVIGAZIONE ---
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
             const lightboxTitle = document.getElementById('lightbox-title');
